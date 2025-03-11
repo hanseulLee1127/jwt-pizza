@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: "22.x"
 
       - name: Build
         run: |
@@ -76,7 +76,7 @@ jobs:
 
       - name: Push to AWS S3
         run: |
-          aws s3 cp dist s3://pizza.hanseullee.click/$version --recursive
+          aws s3 cp dist s3://${{ secrets.APP_BUCKET }}/$version --recursive
 
       - name: Update the cloudfront distribution
         run: |
@@ -105,6 +105,7 @@ jobs:
           tag: stage-version-${{ env.version }}
           name: Staging ${{ env.version }}
           generateReleaseNotes: true
+          makeLatest: true
           body: |
             ## Description
 
